@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3</title>
+</head>
+
+<body>
+    <div id="bang"></div>
+    <script>
+
+        class SoTietKiem {
+            constructor(maSo, loaiTietKiem, hoTen, chungMinh, ngayMoSo, soTien) {
+                this.maSo = maSo;
+                this.loaiTietKiem = loaiTietKiem;
+                this.hoTen = hoTen;
+                this.chungMinh = chungMinh;
+                this.ngayMoSo = ngayMoSo;
+                this.soTien = soTien;
+            }
+
+            setMaSo(maSo) {
+                this.maSo = maSo;
+            }
+
+            setloaiTietKiem(loaiTietKiem) {
+                this.loaiTietKiem = loaiTietKiem;
+            }
+
+            setHoTen(hoTen) {
+                this.hoTen = hoTen;
+            }
+
+            setChungMinh(chungMinh) {
+                this.chungMinh = chungMinh;
+            }
+
+            setNgayMoSo(ngayMoSo) {
+                this.ngayMoSo = ngayMoSo;
+            }
+
+
+            setSoTien(soTien) {
+                this.soTien = soTien;
+            }
+        }
+
+        let soTiepKiem1 = new SoTietKiem('12345', 'Ngắn hạn', 'Nguyễn Văn A', 12345678, '12/12/2022', 1000000);
+        let soTiepKiem2 = new SoTietKiem('23456', 'Dài hạn', 'Nguyễn Văn B', 12345678, '12/12/2022', 2000000);
+        let soTiepKiem3 = new SoTietKiem('34567', 'Dài hạn', 'Nguyễn Văn C', 12345678, '12/12/2022', 3000000);
+        let soTiepKiem4 = new SoTietKiem('45678', 'Ngắn hạn', 'Nguyễn Văn D', 12345678, '12/12/2022', 4000000);
+        let soTiepKiem5 = new SoTietKiem('56789', 'Ngắn hạn', 'Nguyễn Văn E', 12345678, '12/12/2022', 5000000);
+
+        let list = [soTiepKiem1, soTiepKiem2, soTiepKiem3, soTiepKiem4, soTiepKiem5];
+
+        function them() {
+            let maSo = document.getElementById('maSo').value;
+            let loaiTietKiem = document.getElementById('loaiTietKiem').value;
+            let hoTen = document.getElementById('hoTen').value;
+            let chungMinh = document.getElementById('chungMinh').value;
+            let ngayMoSo = document.getElementById('ngayMoSo').value;
+            let soTien = document.getElementById('soTien').value;
+
+            let soTietKiemMoi = new SoTietKiem();
+            let loi = 'LỖI:\n'
+            let check = true;
+            //Mã số
+            if (maSo.trim().length == 0) {
+                loi += "Mã sổ không được để trống\n";
+                check = false;
+            } else if (maSo.length > 5) {
+                loi += "Mã sổ chỉ được tối đa 5 ký tự\n";
+                check = false;
+            } else {
+                soTietKiemMoi.setMaSo(maSo);
+            }
+
+            //Loại tiết kiệm
+            if (loaiTietKiem.trim().length == 0) {
+                loi += "Loại tiết kiệm không được để trống\n";
+                check = false;
+            } else if (loaiTietKiem.length > 10) {
+                loi += "Loại tiết kiệm chỉ được tối đa 10 ký tự\n";
+                check = false;
+            } else {
+                soTietKiemMoi.setloaiTietKiem(loaiTietKiem);
+            }
+
+            //Họ tên
+            if (hoTen.trim().length == 0) {
+                loi += "Tên không được để trống\n";
+                check = false;
+            } else if (hoTen.length > 30) {
+                loi += "Họ tên chỉ được tối đa 30 ký tự\n";
+                check = false;
+            } else {
+                soTietKiemMoi.setHoTen(hoTen);
+            }
+
+            //Chứng minh
+            if (chungMinh.trim().length == 0) {
+                loi += "chứng minh nhân không được để trống\n";
+                check = false;
+            } else if (isNaN(chungMinh)) {
+                loi += 'Chưng minh nhân dân phải là số\n';
+                check = false;
+            } else {
+                soTietKiemMoi.setChungMinh(chungMinh);
+            }
+
+            //Ngày mở sổ
+            if (ngayMoSo.trim().length == 0) {
+                loi += "Ngày mở sổ không được để trống\n";
+                check = false;
+            } else {
+                soTietKiemMoi.setNgayMoSo(ngayMoSo);
+            }
+
+            if (isNaN(soTien) || soTien < 1) {
+                loi += 'Số tiền phải là số lớn hơn 0\n';
+                check = false;
+            } else {
+                soTietKiemMoi.setSoTien(soTien);
+            }
+
+            if (check) {
+                list.push(soTietKiemMoi);
+                display();
+            } else {
+                alert(loi);
+            }
+
+
+            
+        }
+
+
+        function xoa() {
+            let maSo = prompt('Nhập mã số tiết kiệm muốn xóa: ');
+            let index = 0
+            let check = false;
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].maSo == maSo) {
+                    index = i;
+                    check = true;
+                    break;
+                }
+            }
+            if (!check) {
+                alert('Mã sổ tiết kiệm không tồn tại');
+            } else {
+                let conf = confirm('Bạn có muốn xóa sổ tiết kiệm này: ');
+                if(conf){
+                    list.splice(index, 1);
+                }
+                
+                display();
+            }
+
+        }
+        function display() {
+            let tableStr = "";
+            tableStr += `
+                 <table>
+                    <tr>
+                        <td><span>Mã sổ:</span></td>
+                        <td><input id="maSo" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><span>Loại tiết kiệm:</span></td>
+                        <td><input id="loaiTietKiem" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><span>Họ tên:</span></td>
+                        <td><input id="hoTen" type="text"></td>
+                    </td>
+                    <tr>
+                        <td><span>Chưng minh nhân dân:</span></td>
+                        <td><input id="chungMinh" type="number"></td>
+                    </td>
+                    <tr>
+                        <td><span>Ngày mở sổ:</span></td>
+                        <td><input id="ngayMoSo" type="text"></td>
+                    </td>
+                    <tr>
+                        <td><span>Số tiền gửi:</span></td>
+                        <td><input id="soTien" min="0" type="number"></td>
+                    </td>
+                    <tr>
+                        <th colspan="2">
+                            <input type="button" id="button" value="Thêm" onclick="them()">
+                            <input type="button" id="reset" value="Hủy" onclick="lamMoi()">
+                            <input type="button" id="xoa" value="Xóa" onclick="xoa()">
+                        </th>
+                    </tr>
+                </table>`
+            tableStr += `<hr>`;
+            tableStr += `<input type="hidden" id="selecting">`;
+            tableStr += '<table border="1" style="">';
+            tableStr += `<tr>`;
+            tableStr += `<th>Mã sổ</th>`
+            tableStr += `<th>Loại tiết kiệm</th>`
+            tableStr += `<th>Họ tên</th>`
+            tableStr += `<th>Chứng minh nhân dân</th>`
+            tableStr += `<th>Ngày mở sổ</th>`
+            tableStr += `<th>Số tiền gửi</th>`
+            tableStr += `</tr>`;
+
+            for (let i = 0; i < list.length; i++) {
+                tableStr += `<tr>`;
+                tableStr += `<td>${list[i].maSo}</td>`;
+                tableStr += `<td>${list[i].loaiTietKiem}</td>`;
+                tableStr += `<td>${list[i].hoTen}</td>`;
+                tableStr += `<td>${list[i].chungMinh}</td>`;
+                tableStr += `<td>${list[i].ngayMoSo}</td>`;
+                tableStr += `<td>${list[i].soTien}</td>`;
+
+                tableStr += `</tr>`;
+            }
+
+            tableStr += ` </table>`;
+
+            document.getElementById("bang").innerHTML = tableStr;
+        }
+
+        display();
+    </script>
+</body>
+
+</html>

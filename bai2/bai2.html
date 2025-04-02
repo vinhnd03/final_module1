@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2</title>
+</head>
+
+<body>
+    <script>
+
+        function compareNumber(a, b, c, d) {
+            if (a * d == b * c) {
+                return "2 phân số bằng nhau";
+            } else {
+                return "2 phân số không bằng nhau";
+            }
+        }
+
+        function checkInput() {
+            let num1 = 0;
+            let num2 = 0;
+            let loop = true;
+            let cnt = 1;
+
+            function checkInput(num) {
+                let tempArr = []
+                do {
+                    num = prompt("Nhập phân số " + cnt);
+                    tempArr = num.split('/');
+                    if (tempArr.length == 2) {
+                        let count = 0;
+                        for (let i = 0; i < tempArr.length; i++) {
+                            if (isNaN(tempArr[i] || tempArr[i] % 1 !== 0)) {
+                                loop = true;
+                                count++;
+                            }
+                        }
+
+                        if (count == 0) {
+                            if (tempArr[1] == 0) {
+                                loop = true;
+                            } else {
+                                loop = false;
+                                cnt ++;
+                            }
+                        }
+
+                    }
+                } while (loop)
+                return tempArr;
+            }
+
+            num1 = checkInput();
+            num2 = checkInput();
+
+            alert(compareNumber(num1[0], num1[1], num2[0], num2[1]));
+        }
+
+        checkInput();
+    </script>
+</body>
+
+</html>

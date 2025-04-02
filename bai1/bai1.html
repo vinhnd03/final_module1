@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1</title>
+</head>
+
+<body>
+    <script>
+
+        function checkPrime(num) {
+            if (num <= 1) {
+                return false;
+            }
+            for (let i = 2; i < num; i++) {
+                if (num % i == 0) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function findInArray(arr) {
+            let newArray = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (checkPrime(arr[i])) {
+                    newArray.push(arr[i]);
+                }
+            }
+            return newArray;
+        }
+
+        function checkInput() {
+            let n = 0;
+            do {
+                n = +prompt('Nhập n (n <= 50): ');
+            } while (n <= 0 || isNaN(n) || n % 1 != 0 || n > 50)
+
+            let array = new Array(n);
+            for (let i = 0; i < array.length; i++) {
+                do {
+                    array[i] = +prompt('Nhập phần tử thứ ' + i);
+                } while (array[i] < 0 || isNaN(array[i]));
+            }
+
+            alert(findInArray(array));
+        }
+
+        checkInput();
+
+    </script>
+</body>
+
+</html>
